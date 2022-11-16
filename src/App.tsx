@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './App.css';
 import TodoList from "./TodoList";
 
@@ -8,24 +8,45 @@ export type TaskType = {
     isDone: boolean
 }
 
-function App() {
-    const todoListTitle_1 = 'What to learn';
-    const todoListTitle_2 = 'What to buy';
+export type FilterValuesType = 'all' | 'active' | 'completed'
 
-    const tasks_1 = [
-        {id:1, title: 'HTML & CSS', isDone: true,},
-        {id:2, title: 'JS', isDone: false,},
-        {id:3, title: 'React', isDone: true,},
-    ]
-    const tasks_2 = [
-        {id:4, title: 'Milk', isDone: true,},
-        {id:5, title: 'Cola', isDone: false,},
-        {id:6, title: 'Fanta', isDone: false,},
-    ]
+function App() {
+    const todoListTitle: string = 'What to learn';
+
+    const [tasks, setTasks] = useState<Array<TaskType>>(
+        [
+            {id: 1, title: 'HTML & CSS', isDone: true,},
+            {id: 2, title: 'JS', isDone: false,},
+            {id: 3, title: 'React', isDone: true,}
+        ]
+    )
+
+    const [filter, setFilter] = useState<FilterValuesType>('all')
+  
+    const removeTask = (taskId: number) => {
+        const updatedTasks = tasks.filter(task => task.id !== taskId)
+        setTasks(updatedTasks)
+    }
+
+    const changeTodoListFilter = (nextFilterValue: FilterValuesType) => {
+        setFilter(nextFilterValue)
+    }
+    let tasksForRender: Array<TaskType> = [];
+    if (filter === 'all') {
+        tasksForRender = tasks
+    } else if (filter === 'active') {
+        tasksForRender = tasks.filter(task => task.isDone === false)
+    } else if (filter === 'completed') {
+        tasksForRender = tasks.filter(task => task.isDone === true)
+    }
+
+
     return (
         <div className="App">
-            <TodoList title={todoListTitle_1} tasks={tasks_1}/>
-            <TodoList title={todoListTitle_2} tasks={tasks_2}/>
+            <TodoList title={todoListTitle}
+                      tasks={tasksForRender}
+                      removeTask={removeTask}
+                      changeTodoListFilter={changeTodoListFilter}/>
         </div>
     );
 }
