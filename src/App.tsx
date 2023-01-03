@@ -29,7 +29,7 @@ function App() {
         setTasks(updatedTasks)
     }
 
-    const changeTodoListFilter = (nextFilterValue: FilterValuesType) => {
+    const changeFilter = (nextFilterValue: FilterValuesType) => {
         setFilter(nextFilterValue)
     }
     let tasksForRender: Array<TaskType> = [];
@@ -44,13 +44,19 @@ function App() {
     const addTask = (title: string) => {
         setTasks([{id: v1(), title, isDone: false}, ...tasks])
     }
+    const changeTaskStatus = (id: string,value: boolean) => {
+        setTasks(tasks.map(el => el.id === id? {...el, isDone: value}: el))
+    }
     return (
         <div className="App">
             <TodoList title={todoListTitle}
-                      addTask={addTask}
                       tasks={tasksForRender}
                       removeTask={removeTask}
-                      changeTodoListFilter={changeTodoListFilter}/>
+                      changeFilter={changeFilter}
+                      addTask={addTask}
+                      changeTaskStatus={changeTaskStatus}
+                      filter={filter}
+            />
         </div>
     );
 }
