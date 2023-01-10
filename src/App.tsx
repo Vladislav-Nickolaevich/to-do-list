@@ -69,9 +69,12 @@ function App() {
         setTodolist([newTodo, ...todolist])
         setTasks({[newId]: [], ...tasks})
     }
+    const updateTask = (todolistId: string, taskId: string, title: string) => {
+        setTasks({...tasks, [todolistId]: tasks[todolistId].map(el => el.id === taskId? {...el, title}: el)})
+    }
     return (
         <div className="App">
-            <Input title={'helo'} addTask={addTodolistHandler}/>
+            <Input addTask={addTodolistHandler}/>
             {
                 todolist.map(todo => {
                     let tasksForRender = tasks[todo.id];
@@ -92,6 +95,7 @@ function App() {
                             changeTaskStatus={changeTaskStatus}
                             filter={todo.filter}
                             onClickDeleteTodolist={onClickDeleteTodolist}
+                            updateTask={updateTask}
                         />
                     )
                 })

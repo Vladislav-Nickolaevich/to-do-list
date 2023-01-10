@@ -1,7 +1,6 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 
 type InputType = {
-    title: string
     addTask:(title: string) => void
 }
 export const Input = (props:InputType) => {
