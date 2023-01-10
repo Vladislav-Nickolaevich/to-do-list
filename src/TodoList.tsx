@@ -1,5 +1,6 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import {FilterValuesType, TaskType} from "./App";
+import {Input} from "./components/Input";
 
 
 type TodoListPropsType = {
@@ -15,7 +16,7 @@ type TodoListPropsType = {
 }
 
 const TodoList = (props: TodoListPropsType) => {
-    const {todolistId, filter, changeFilter, title, changeTaskStatus, tasks, addTask, removeTask} = props
+    const {todolistId, filter, changeFilter, changeTaskStatus, tasks, removeTask} = props
     const tasksListsItems = tasks.map((task) => {
         const onClickHandler = () => removeTask(todolistId, task.id)
         const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -33,47 +34,22 @@ const TodoList = (props: TodoListPropsType) => {
             </li>
         );
     })
-    const [value, setValue] = useState('')
-    const [error, setError] = useState<string | null>(null)
-    const inputOnChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setValue(e.currentTarget.value)
-    }
-    const onKeyDownInput = (e: KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter') {
-            onClickAdd()
-        }
-    }
-    const onClickAdd = () => {
-        if (value.trim() !== '') {
-            addTask(todolistId, value)
-            setValue('')
-            setError(null)
-        } else {
-            setValue('')
-            setError('Title is required')
-        }
 
-    }
     const allClickHandler = () => changeFilter(todolistId, 'all')
     const activeClickHandler = () => changeFilter(todolistId, 'active')
     const completedClickHandler = () => changeFilter(todolistId, 'completed')
     const onClickDeleteTodolist = () => props.onClickDeleteTodolist(props.todolistId)
+    const addTaskHandler = (title:string) => {
+        props.addTask(props.todolistId, title)
+    }
     return (
         <div>
             <h3>
                 {props.title}
                 <button onClick={onClickDeleteTodolist}>x</button>
             </h3>
-            <div>
-                <input
-                    value={value}
-                    onChange={inputOnChangeHandler}
-                    onKeyDown={onKeyDownInput}
-                    className={error ? 'error' : ''}
-                />
-                <button onClick={onClickAdd}>+</button>
-                {error && <div className='error-message'>{error}</div>}
-            </div>
+
+            <Input title={props.title} addTask={addTaskHandler}/>
             <ul>
                 {tasksListsItems}
             </ul>

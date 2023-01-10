@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import './App.css';
 import TodoList from "./TodoList";
 import {v1} from "uuid";
+import {Input} from "./components/Input";
 
 export type TaskType = {
     id: string,
@@ -28,18 +29,17 @@ function App() {
 
     let [tasks, setTasks] = useState({
         [todolistID1]: [
-            {id: v1(), title: "HTML&CSS", isDone: true},
+            {id: v1(), title: "HTML & CSS", isDone: true},
             {id: v1(), title: "JS", isDone: true},
-            {id: v1(), title: "ReactJS", isDone: false},
+            {id: v1(), title: "React", isDone: false},
             {id: v1(), title: "Rest API", isDone: false},
-            {id: v1(), title: "GraphQL", isDone: false},
+            {id: v1(), title: "TS", isDone: false},
         ],
         [todolistID2]: [
-            {id: v1(), title: "HTML&CSS2", isDone: true},
-            {id: v1(), title: "JS2", isDone: true},
-            {id: v1(), title: "ReactJS2", isDone: false},
-            {id: v1(), title: "Rest API2", isDone: false},
-            {id: v1(), title: "GraphQL2", isDone: false},
+            {id: v1(), title: "Auto", isDone: false},
+            {id: v1(), title: "Scissors", isDone: true},
+            {id: v1(), title: "Mobile Phone", isDone: false},
+
         ],
     })
 
@@ -63,15 +63,22 @@ function App() {
         setTodolist(todolist.filter(el => el.id !== todolistId))
         delete tasks[todolistId]
     }
+    const addTodolistHandler = (title:string) => {
+        let newId = v1()
+        const newTodo:TodolistsType = {id: newId, title, filter: 'all'}
+        setTodolist([newTodo, ...todolist])
+        setTasks({[newId]: [], ...tasks})
+    }
     return (
         <div className="App">
+            <Input title={'helo'} addTask={addTodolistHandler}/>
             {
                 todolist.map(todo => {
                     let tasksForRender = tasks[todo.id];
                     if (todo.filter === 'active') {
-                        tasksForRender = tasks[todo.id].filter(task => task.isDone === false)
+                        tasksForRender = tasks[todo.id].filter(task => !task.isDone)
                     } else if (todo.filter === 'completed') {
-                        tasksForRender = tasks[todo.id].filter(task => task.isDone === true)
+                        tasksForRender = tasks[todo.id].filter(task => task.isDone)
                     }
                     return (
                         <TodoList
