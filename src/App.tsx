@@ -72,6 +72,9 @@ function App() {
     const updateTask = (todolistId: string, taskId: string, title: string) => {
         setTasks({...tasks, [todolistId]: tasks[todolistId].map(el => el.id === taskId? {...el, title}: el)})
     }
+    const updateTitle = (todolistId: string, title: string) => {
+        setTodolist(todolist.map(el => el.id === todolistId? {...el, title}: el))
+    }
     return (
         <div className="App">
             <Input addTask={addTodolistHandler}/>
@@ -96,6 +99,7 @@ function App() {
                             filter={todo.filter}
                             onClickDeleteTodolist={onClickDeleteTodolist}
                             updateTask={updateTask}
+                            updateTitle={updateTitle}
                         />
                     )
                 })

@@ -15,6 +15,7 @@ type TodoListPropsType = {
     filter: FilterValuesType
     onClickDeleteTodolist: (todolistId: string) => void
     updateTask:(todolistId: string, taskId: string, title: string) => void
+    updateTitle: (todolistId: string, title: string) => void
 }
 
 const TodoList = (props: TodoListPropsType) => {
@@ -47,10 +48,14 @@ const TodoList = (props: TodoListPropsType) => {
     const addTaskHandler = (title:string) => {
         props.addTask(props.todolistId, title)
     }
+    const updateTitle = (title: string) => {
+        props.updateTitle(props.todolistId, title)
+    }
     return (
         <div>
             <h3>
-                {props.title}
+                {/*{props.title}*/}
+                <EditableSpan title={props.title} updateTask={updateTitle}/>
                 <button onClick={onClickDeleteTodolist}>x</button>
             </h3>
 
