@@ -2,6 +2,7 @@ import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import {FilterValuesType, TaskType} from "./App";
 import {Input} from "./components/Input";
 import {EditableSpan} from "./components/EditableSpan";
+import {Button, ButtonGroup} from "@mui/material";
 
 
 type TodoListPropsType = {
@@ -64,15 +65,28 @@ const TodoList = (props: TodoListPropsType) => {
                 {tasksListsItems}
             </ul>
             <div>
-                <button onClick={allClickHandler}
-                        className={filter === 'all' ? 'active' : ''}>All
-                </button>
-                <button onClick={activeClickHandler}
-                        className={filter === 'active' ? 'active' : ''}>Active
-                </button>
-                <button onClick={completedClickHandler}
-                        className={filter === 'completed' ? 'active' : ''}>Completed
-                </button>
+
+                <ButtonGroup
+                    disableElevation
+                    size='small'
+                    variant="contained"
+                    fullWidth>
+                    <Button
+                        sx={{mr: '3px', fontSize: '10px'}}
+                        color={props.filter === 'all' ? "secondary" : "primary"}
+                        onClick={allClickHandler}>All
+                    </Button>
+                    <Button
+                        sx={{mr: '3px', fontSize: '10px'}}
+                        color={props.filter === 'active' ? "secondary" : "primary"}
+                        onClick={activeClickHandler}>Active
+                    </Button>
+                    <Button
+                        sx={{fontSize: '10px'}}
+                        color={props.filter === 'completed' ? "secondary" : "primary"}
+                        onClick={completedClickHandler}>Completed
+                    </Button>
+                </ButtonGroup>
             </div>
         </div>
     );
