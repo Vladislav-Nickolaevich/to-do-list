@@ -28,12 +28,7 @@ export const Input = (props:InputType) => {
     }
     return (
         <div>
-            {/*<input*/}
-            {/*    value={value}*/}
-            {/*    onChange={inputOnChangeHandler}*/}
-            {/*    onKeyDown={onKeyDownInput}*/}
-            {/*    className={error ? 'error' : ''}*/}
-            {/*/>*/}
+
             <TextField variant="outlined"
                        size='small'
                        label="Title"
@@ -44,7 +39,6 @@ export const Input = (props:InputType) => {
                        className={error ? "error" : ""}
 
             />
-            {/*<button onClick={onClickAdd}>+</button>*/}
             <IconButton color='primary' onClick={onClickAdd}>
                 <AddIcon/>
             </IconButton>
