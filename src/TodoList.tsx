@@ -2,7 +2,8 @@ import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import {FilterValuesType, TaskType} from "./App";
 import {Input} from "./components/Input";
 import {EditableSpan} from "./components/EditableSpan";
-import {Button, ButtonGroup, Checkbox, IconButton, ListItem, Typography} from "@mui/material";
+import {Checkbox} from "./components/Checkbox";
+import {Button, ButtonGroup, IconButton, ListItem, Typography} from "@mui/material";
 import CancelPresentationIcon from '@mui/icons-material/CancelPresentation';
 
 
@@ -22,34 +23,23 @@ type TodoListPropsType = {
 
 const TodoList = (props: TodoListPropsType) => {
     const {todolistId, filter, changeFilter, changeTaskStatus, tasks, removeTask} = props
+
     const tasksListsItems = tasks.map((task) => {
         const onClickHandler = () => removeTask(todolistId, task.id)
-        const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-            let newIsDoneValue = e.currentTarget.checked
-            changeTaskStatus(todolistId, task.id, newIsDoneValue)
+
+        const changeStatusHandler = (taskId: string, eventValue: boolean) => {
+            changeTaskStatus(props.todolistId, taskId,eventValue)
         }
         const updateTaskHandler = (newTitle: string) => {
             props.updateTask(props.todolistId, task.id, newTitle)
         }
         return (
-            // <li key={task.id}>
-            //     <input type="checkbox"
-            //            checked={task.isDone}
-            //            onChange={onChangeHandler}
-            //     />
-            //     <EditableSpan title={task.title} updateTask={updateTaskHandler}/>
-            //     <button onClick={onClickHandler}>X</button>
-            // </li>
             <ListItem
                 key={task.id}
                 className={task.isDone ? "is-done" : ""}
                 sx={{p: '0'}}
             >
-                <Checkbox
-                    size='small'
-                    onChange={onChangeHandler}
-                    checked={task.isDone}
-                />
+                <Checkbox callBack={(eventValue:boolean) => changeStatusHandler(task.id, eventValue)} checked={task.isDone}/>
                 <EditableSpan title={task.title} updateTask={updateTaskHandler}/>
                 <IconButton
                     size='small'
@@ -94,17 +84,17 @@ const TodoList = (props: TodoListPropsType) => {
                     fullWidth>
                     <Button
                         sx={{mr: '3px', fontSize: '10px'}}
-                        color={props.filter === 'all' ? "secondary" : "primary"}
+                        color={filter === 'all' ? "secondary" : "primary"}
                         onClick={allClickHandler}>All
                     </Button>
                     <Button
                         sx={{mr: '3px', fontSize: '10px'}}
-                        color={props.filter === 'active' ? "secondary" : "primary"}
+                        color={filter === 'active' ? "secondary" : "primary"}
                         onClick={activeClickHandler}>Active
                     </Button>
                     <Button
                         sx={{fontSize: '10px'}}
-                        color={props.filter === 'completed' ? "secondary" : "primary"}
+                        color={filter === 'completed' ? "secondary" : "primary"}
                         onClick={completedClickHandler}>Completed
                     </Button>
                 </ButtonGroup>
