@@ -2,7 +2,8 @@ import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import {FilterValuesType, TaskType} from "./App";
 import {Input} from "./components/Input";
 import {EditableSpan} from "./components/EditableSpan";
-import {Button, ButtonGroup} from "@mui/material";
+import {Button, ButtonGroup, Checkbox, IconButton, ListItem, Typography} from "@mui/material";
+import CancelPresentationIcon from '@mui/icons-material/CancelPresentation';
 
 
 type TodoListPropsType = {
@@ -31,14 +32,31 @@ const TodoList = (props: TodoListPropsType) => {
             props.updateTask(props.todolistId, task.id, newTitle)
         }
         return (
-            <li key={task.id}>
-                <input type="checkbox"
-                       checked={task.isDone}
-                       onChange={onChangeHandler}
+            // <li key={task.id}>
+            //     <input type="checkbox"
+            //            checked={task.isDone}
+            //            onChange={onChangeHandler}
+            //     />
+            //     <EditableSpan title={task.title} updateTask={updateTaskHandler}/>
+            //     <button onClick={onClickHandler}>X</button>
+            // </li>
+            <ListItem
+                key={task.id}
+                className={task.isDone ? "is-done" : ""}
+                sx={{p: '0'}}
+            >
+                <Checkbox
+                    size='small'
+                    onChange={onChangeHandler}
+                    checked={task.isDone}
                 />
                 <EditableSpan title={task.title} updateTask={updateTaskHandler}/>
-                <button onClick={onClickHandler}>X</button>
-            </li>
+                <IconButton
+                    size='small'
+                    onClick={onClickHandler}>
+                    <CancelPresentationIcon fontSize='small'/>
+                </IconButton>
+            </ListItem>
         );
     })
 
@@ -54,11 +72,14 @@ const TodoList = (props: TodoListPropsType) => {
     }
     return (
         <div>
-            <h3>
-                {/*{props.title}*/}
+            <span>
+                <Typography variant='h6' align='center'>
                 <EditableSpan title={props.title} updateTask={updateTitle}/>
-                <button onClick={onClickDeleteTodolist}>x</button>
-            </h3>
+                    <IconButton onClick={onClickDeleteTodolist}>
+                        <CancelPresentationIcon/>
+                    </IconButton>
+                </Typography>
+            </span>
 
             <Input addTask={addTaskHandler}/>
             <ul>
