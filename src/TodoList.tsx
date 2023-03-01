@@ -21,7 +21,7 @@ type TodoListPropsType = {
     updateTitle: (todolistId: string, title: string) => void
 }
 
-const TodoList = (props: TodoListPropsType) => {
+export const TodoList = (props: TodoListPropsType) => {
     const {todolistId, filter, changeFilter, changeTaskStatus, tasks, removeTask} = props
 
     const tasksListsItems = tasks.map((task) => {
@@ -102,5 +102,3 @@ const TodoList = (props: TodoListPropsType) => {
         </div>
     );
 };
-
-export default TodoList;

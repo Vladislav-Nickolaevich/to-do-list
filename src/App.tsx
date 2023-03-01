@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
 import './App.css';
-import TodoList from "./TodoList";
 import {v1} from "uuid";
 import {Input} from "./components/Input";
 import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@mui/material";
 import {Menu} from "@mui/icons-material";
+import {TodoList} from "./TodoList";
 
 export type TaskType = {
     id: string,
@@ -14,7 +14,7 @@ export type TaskType = {
 
 export type FilterValuesType = 'all' | 'active' | 'completed'
 
-type TodolistsType = {
+export type TodolistsType = {
     id: string
     title: string
     filter: FilterValuesType
