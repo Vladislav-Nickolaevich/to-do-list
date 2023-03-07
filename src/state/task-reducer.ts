@@ -2,7 +2,8 @@ import {TasksStateType} from "../App";
 
 const REMOVE_TASK = 'REMOVE-TASK'
 const ADD_TASK = 'ADD-TASK'
-type TaskReducerActionType = RemoveACType | AddACType
+const CHANGE_TASK_STATUS = 'CHANGE-TASK-STATUS'
+type TaskReducerActionType = RemoveACType | AddACType | ChangeTaskStatusACType
 
 
 export const TaskReducer = (state: TasksStateType, action: TaskReducerActionType) => {
@@ -21,6 +22,16 @@ export const TaskReducer = (state: TasksStateType, action: TaskReducerActionType
                 [action.todolistID1]:[...state[action.todolistID1], newTask]
             }
         }
+        case CHANGE_TASK_STATUS: {
+            return {
+                ...state,
+                [action.todolistID2]: state[action.todolistID2]
+                    .map(el => el.id === action.taskId?
+                        {...el, isDone: action.isDone}
+                        : el
+                    )
+            }
+        }
         default:
             throw new Error("I don't understand this type")
     }
@@ -33,5 +44,5 @@ type AddACType = ReturnType<typeof AddAC>
 export const AddAC = (todolistID1: string, newTitle: string) => ({type: ADD_TASK, todolistID1, newTitle} as const)
 
 
-
-
+type ChangeTaskStatusACType = ReturnType<typeof ChangeTaskStatusAC>
+export const ChangeTaskStatusAC = (taskId: string, isDone: boolean, todolistID2: string) => ({type: CHANGE_TASK_STATUS,taskId, isDone, todolistID2}as const)
