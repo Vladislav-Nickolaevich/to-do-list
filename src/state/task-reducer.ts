@@ -25,7 +25,7 @@ export const TaskReducer = (state: TasksStateType, action: TaskReducerActionType
         case CHANGE_TASK_STATUS: {
             return {
                 ...state,
-                [action.todolistID2]: state[action.todolistID2]
+                [action.todolistID]: state[action.todolistID]
                     .map(el => el.id === action.taskId?
                         {...el, isDone: action.isDone}
                         : el
@@ -45,4 +45,4 @@ export const AddAC = (todolistID1: string, newTitle: string) => ({type: ADD_TASK
 
 
 type ChangeTaskStatusACType = ReturnType<typeof ChangeTaskStatusAC>
-export const ChangeTaskStatusAC = (taskId: string, isDone: boolean, todolistID2: string) => ({type: CHANGE_TASK_STATUS,taskId, isDone, todolistID2}as const)
+export const ChangeTaskStatusAC = (taskId: string, isDone: boolean, todolistID: string) => ({type: CHANGE_TASK_STATUS,taskId, isDone, todolistID}as const)
