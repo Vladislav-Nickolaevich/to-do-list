@@ -49,7 +49,7 @@ test('Should add task', () => {
             {id: '3', title: "Mobile Phone", isDone: false},
         ],
     }
-    const endState = TaskReducer(startState, AddAC('todolistID1'))
+    const endState = TaskReducer(startState, AddAC('todolistID1', 'TS'))
 
     expect(endState).toEqual({
         'todolistID1': [
