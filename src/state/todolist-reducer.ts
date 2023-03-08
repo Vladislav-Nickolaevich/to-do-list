@@ -11,6 +11,7 @@ type TodolistsReducerActionType = DeleteTodolistACType
     | UpdateTitleACType
     | ChangeFilterACType
 
+
 export const TodolistReducer = (state: TodolistsType[], action: TodolistsReducerActionType) => {
     switch (action.type) {
         case REMOVE_TODOLIST: {

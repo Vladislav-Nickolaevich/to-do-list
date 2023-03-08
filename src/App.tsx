@@ -56,7 +56,6 @@ function App() {
         setTodolist(todolist.map(el => el.id === todolistId ? {...el, filter: nextFilterValue} : el))
     }
 
-
     const addTask = (todolistId: string, title: string) => {
         let newTask = {id: v1(), title, isDone: false}
         setTasks({...tasks, [todolistId]: [newTask, ...tasks[todolistId]]})
