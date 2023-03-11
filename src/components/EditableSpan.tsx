@@ -3,7 +3,7 @@ import {TextField} from "@mui/material";
 
 type EditableSpanType = {
     title: string
-    updateTask: (newTitle: string) => void
+    changeTitle: (newTitle: string) => void
 }
 export const EditableSpan = (props: EditableSpanType) => {
     const [edit, setEdit] = useState(false)
@@ -11,7 +11,7 @@ export const EditableSpan = (props: EditableSpanType) => {
 
     const changeTextOfTask = () => {
         setEdit(!edit)
-        props.updateTask(newTitle)
+        props.changeTitle(newTitle)
     }
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setNewTitle(e.currentTarget.value)

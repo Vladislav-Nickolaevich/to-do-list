@@ -15,7 +15,7 @@ type TaskReducerActionType = RemoveACType
     | RemoveTodolistACType
 
 
-export const TaskReducer = (state: TasksStateType, action: TaskReducerActionType) => {
+export const taskReducer = (state: TasksStateType, action: TaskReducerActionType):TasksStateType => {
     switch (action.type) {
         case REMOVE_TASK: {
             return {
@@ -67,22 +67,22 @@ export const TaskReducer = (state: TasksStateType, action: TaskReducerActionType
     }
 }
 
-type RemoveACType = ReturnType<typeof RemoveAC>
-export const RemoveAC = (todolistID1: string, taskId: string) =>
+type RemoveACType = ReturnType<typeof removeTaskAC>
+export const removeTaskAC = (todolistID1: string, taskId: string) =>
     ({type: REMOVE_TASK, todolistID1, taskId} as const)
 
-type AddACType = ReturnType<typeof AddAC>
-export const AddAC = (todolistID1: string, newTitle: string) =>
+type AddACType = ReturnType<typeof addTaskAC>
+export const addTaskAC = (todolistID1: string, newTitle: string) =>
     ({type: ADD_TASK, todolistID1, newTitle} as const)
 
-type ChangeTaskStatusACType = ReturnType<typeof ChangeTaskStatusAC>
-export const ChangeTaskStatusAC = (taskId: string, isDone: boolean, todolistID: string) =>
+type ChangeTaskStatusACType = ReturnType<typeof changeTaskStatusAC>
+export const changeTaskStatusAC = (taskId: string, isDone: boolean, todolistID: string) =>
     ({type: CHANGE_TASK_STATUS, taskId, isDone, todolistID} as const)
 
-type ChangeTaskTitleACType = ReturnType<typeof ChangeTaskTitleAC>
-export const ChangeTaskTitleAC = (taskId: string, newTitle: string, todolistID: string) =>
+type ChangeTaskTitleACType = ReturnType<typeof changeTaskTitleAC>
+export const changeTaskTitleAC = (taskId: string, newTitle: string, todolistID: string) =>
     ({type: CHANGE_TASK_TITLE, taskId, newTitle, todolistID} as const)
 
-type RemoveTodolistACType = ReturnType<typeof RemoveTodolistAC>
-export const RemoveTodolistAC = (todolistID: string) =>
+type RemoveTodolistACType = ReturnType<typeof removeTodolistAC>
+export const removeTodolistAC = (todolistID: string) =>
     ({type: REMOVE_TODOLIST, todolistID} as const)
