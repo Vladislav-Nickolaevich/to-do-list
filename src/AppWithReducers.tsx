@@ -1,39 +1,32 @@
-import React, {useState} from 'react';
+import React, {useReducer} from 'react';
 import './App.css';
 import {v1} from "uuid";
 import {Input} from "./components/Input";
 import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@mui/material";
 import {Menu} from "@mui/icons-material";
 import {TodoList} from "./TodoList";
+import {
+    addTodolistAC,
+    changeFilterAC,
+    changeTodolistTitleAC,
+    deleteTodolistAC,
+    todolistReducer
+} from "./state/todolist-reducer";
+import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, taskReducer} from "./state/task-reducer";
 
-export type TaskType = {
-    id: string,
-    title: string,
-    isDone: boolean
-}
 
 export type FilterValuesType = 'all' | 'active' | 'completed'
 
-export type TodolistsType = {
-    id: string
-    title: string
-    filter: FilterValuesType
-}
-
-export type TasksStateType = {
-    [key: string]: Array<TaskType>
-}
-
-function App() {
+function AppWithReducers() {
     let todolistID1 = v1();
     let todolistID2 = v1();
 
-    let [todolist, setTodolist] = useState<TodolistsType[]>([
+    let [todolist, dispatchToTodolistReducer] = useReducer(todolistReducer, [
         {id: todolistID1, title: 'What to learn', filter: 'all'},
         {id: todolistID2, title: 'What to buy', filter: 'all'},
     ])
 
-    let [tasks, setTasks] = useState<TasksStateType>({
+    let [tasks, dispatchTasksReducer] = useReducer(taskReducer, {
         [todolistID1]: [
             {id: v1(), title: "HTML & CSS", isDone: true},
             {id: v1(), title: "JS", isDone: true},
@@ -49,39 +42,37 @@ function App() {
     })
 
     const removeTask = (todolistId: string, taskId: string) => {
-        setTasks({...tasks, [todolistId]: tasks[todolistId].filter(el => el.id !== taskId)})
+        dispatchTasksReducer(removeTaskAC(todolistId, taskId))
     }
 
     const changeFilter = (todolistId: string, nextFilterValue: FilterValuesType) => {
-        setTodolist(todolist.map(el => el.id === todolistId ? {...el, filter: nextFilterValue} : el))
+        dispatchToTodolistReducer(changeFilterAC(todolistId, nextFilterValue))
     }
 
     const addTask = (todolistId: string, title: string) => {
-        let newTask = {id: v1(), title, isDone: false}
-        setTasks({...tasks, [todolistId]: [newTask, ...tasks[todolistId]]})
+        dispatchTasksReducer(addTaskAC(todolistId, title))
     }
     const changeTaskStatus = (todolistId: string, id: string, value: boolean) => {
-        setTasks({...tasks, [todolistId]: tasks[todolistId].map(el => el.id === id ? {...el, isDone: value} : el)})
+        dispatchTasksReducer(changeTaskStatusAC(id, value, todolistId))
     }
     const onClickDeleteTodolist = (todolistId: string) => {
-        setTodolist(todolist.filter(el => el.id !== todolistId))
-        delete tasks[todolistId]
+        dispatchToTodolistReducer(deleteTodolistAC(todolistId))
     }
     const addTodolistHandler = (title: string) => {
-        let newId = v1()
-        const newTodo: TodolistsType = {id: newId, title, filter: 'all'}
-        setTodolist([newTodo, ...todolist])
-        setTasks({[newId]: [], ...tasks})
+        const action = addTodolistAC(title)
+        dispatchToTodolistReducer(action)
+        dispatchTasksReducer(action)
+
     }
-    const updateTask = (todolistId: string, taskId: string, title: string) => {
-        setTasks({...tasks, [todolistId]: tasks[todolistId].map(el => el.id === taskId ? {...el, title} : el)})
+    const changeTaskTitle = (todolistId: string, taskId: string, title: string) => {
+        dispatchTasksReducer(changeTaskTitleAC(taskId, title, todolistId))
     }
-    const updateTitle = (todolistId: string, title: string) => {
-        setTodolist(todolist.map(el => el.id === todolistId ? {...el, title} : el))
+    const changeTodolistTitle = (todolistId: string, title: string) => {
+        dispatchToTodolistReducer(changeTodolistTitleAC(todolistId, title))
     }
     return (
         <div className="App">
-            <AppBar  style={{height: '60px'}}>
+            <AppBar style={{height: '60px'}}>
                 <Toolbar>
                     <IconButton
                         size="large"
@@ -125,8 +116,8 @@ function App() {
                                             changeTaskStatus={changeTaskStatus}
                                             filter={todo.filter}
                                             onClickDeleteTodolist={onClickDeleteTodolist}
-                                            changeTaskTitle={updateTask}
-                                            changeTodolistTitle={updateTitle}
+                                            changeTaskTitle={changeTaskTitle}
+                                            changeTodolistTitle={changeTodolistTitle}
                                         />
                                     </Paper>
                                 </Grid>
@@ -139,5 +130,4 @@ function App() {
     );
 }
 
-
-export default App;
+export default AppWithReducers;
