@@ -14,7 +14,6 @@ import {
 } from "./state/todolist-reducer";
 import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, taskReducer} from "./state/task-reducer";
 
-
 export type TaskType = {
     id: string,
     title: string,
@@ -33,7 +32,7 @@ export type TasksStateType = {
     [key: string]: Array<TaskType>
 }
 
-function AppWithReducers() {
+function AppWithRedux() {
     let todolistID1 = v1();
     let todolistID2 = v1();
 
@@ -146,4 +145,4 @@ function AppWithReducers() {
     );
 }
 
-export default AppWithReducers;
+export default AppWithRedux;
