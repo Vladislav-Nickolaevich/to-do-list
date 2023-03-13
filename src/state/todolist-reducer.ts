@@ -14,8 +14,8 @@ type TodolistsReducerActionType = DeleteTodolistACType
 
 
 const initialState: TodolistsType[] = [
-    {id: todolistID1, title: 'What to learn', filter: 'all'},
-    {id: todolistID2, title: 'What to buy', filter: 'all'},
+    // {id: todolistID1, title: 'What to learn', filter: 'all'},
+    // {id: todolistID2, title: 'What to buy', filter: 'all'},
 ]
 
 export const todolistReducer = (state: TodolistsType[] = initialState, action: TodolistsReducerActionType):TodolistsType[] => {

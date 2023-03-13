@@ -20,18 +20,18 @@ export let todolistID1 = v1();
 export let todolistID2 = v1();
 
 const initialState: TasksStateType = {
-    [todolistID1]: [
-    {id: v1(), title: "HTML & CSS", isDone: true},
-    {id: v1(), title: "JS", isDone: true},
-    {id: v1(), title: "React", isDone: false},
-    {id: v1(), title: "Rest API", isDone: false},
-    {id: v1(), title: "TS", isDone: false},
-],
-    [todolistID2]: [
-    {id: v1(), title: "Auto", isDone: false},
-    {id: v1(), title: "Scissors", isDone: true},
-    {id: v1(), title: "Mobile Phone", isDone: false},
-],
+//     [todolistID1]: [
+//     {id: v1(), title: "HTML & CSS", isDone: true},
+//     {id: v1(), title: "JS", isDone: true},
+//     {id: v1(), title: "React", isDone: false},
+//     {id: v1(), title: "Rest API", isDone: false},
+//     {id: v1(), title: "TS", isDone: false},
+// ],
+//     [todolistID2]: [
+//     {id: v1(), title: "Auto", isDone: false},
+//     {id: v1(), title: "Scissors", isDone: true},
+//     {id: v1(), title: "Mobile Phone", isDone: false},
+// ],
 }
 
 export const taskReducer = (state: TasksStateType = initialState, action: TaskReducerActionType):TasksStateType => {
