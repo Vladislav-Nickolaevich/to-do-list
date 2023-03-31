@@ -102,6 +102,6 @@ type ChangeTaskTitleACType = ReturnType<typeof changeTaskTitleAC>
 export const changeTaskTitleAC = (taskId: string, newTitle: string, todolistID: string) =>
     ({type: CHANGE_TASK_TITLE, taskId, newTitle, todolistID} as const)
 
-type RemoveTodolistACType = ReturnType<typeof removeTodolistAC>
-export const removeTodolistAC = (todolistID: string) =>
+type RemoveTodolistACType = ReturnType<typeof removeTodolistInTaskAC>
+export const removeTodolistInTaskAC = (todolistID: string) =>
     ({type: REMOVE_TODOLIST, todolistID} as const)

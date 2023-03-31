@@ -9,29 +9,19 @@ import {
     addTodolistAC,
     changeFilterAC,
     changeTodolistTitleAC,
-    deleteTodolistAC,
+    removeTodolistInTodoAC,
     todolistReducer
 } from "./state/todolist-reducer";
-import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, taskReducer} from "./state/task-reducer";
-
-
-export type TaskType = {
-    id: string,
-    title: string,
-    isDone: boolean
-}
+import {
+    addTaskAC,
+    changeTaskStatusAC,
+    changeTaskTitleAC,
+    removeTaskAC,
+    removeTodolistInTaskAC,
+    taskReducer
+} from "./state/task-reducer";
 
 export type FilterValuesType = 'all' | 'active' | 'completed'
-
-export type TodolistsType = {
-    id: string
-    title: string
-    filter: FilterValuesType
-}
-
-export type TasksStateType = {
-    [key: string]: Array<TaskType>
-}
 
 function AppWithReducers() {
     let todolistID1 = v1();
@@ -71,8 +61,9 @@ function AppWithReducers() {
     const changeTaskStatus = (todolistId: string, id: string, value: boolean) => {
         dispatchTasksReducer(changeTaskStatusAC(id, value, todolistId))
     }
-    const onClickDeleteTodolist = (todolistId: string) => {
-        dispatchToTodolistReducer(deleteTodolistAC(todolistId))
+    const removeTodolist = (todolistId: string) => {
+        dispatchToTodolistReducer(removeTodolistInTodoAC(todolistId))
+        dispatchTasksReducer(removeTodolistInTaskAC(todolistId))
     }
     const addTodolistHandler = (title: string) => {
         const action = addTodolistAC(title)
@@ -131,7 +122,7 @@ function AppWithReducers() {
                                             addTask={addTask}
                                             changeTaskStatus={changeTaskStatus}
                                             filter={todo.filter}
-                                            onClickDeleteTodolist={onClickDeleteTodolist}
+                                            removeTodolist={removeTodolist}
                                             changeTaskTitle={changeTaskTitle}
                                             changeTodolistTitle={changeTodolistTitle}
                                         />

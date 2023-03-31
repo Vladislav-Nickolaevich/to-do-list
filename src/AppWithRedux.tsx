@@ -8,7 +8,7 @@ import {
     addTodolistAC,
     changeFilterAC,
     changeTodolistTitleAC,
-    deleteTodolistAC,
+    removeTodolistInTodoAC,
 } from "./state/todolist-reducer";
 import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "./state/task-reducer";
 import {useDispatch, useSelector} from "react-redux";
@@ -52,8 +52,8 @@ function AppWithRedux() {
     const changeTaskStatus = (todolistId: string, id: string, value: boolean) => {
         dispatch(changeTaskStatusAC(id, value, todolistId))
     }
-    const onClickDeleteTodolist = (todolistId: string) => {
-        dispatch(deleteTodolistAC(todolistId))
+    const removeTodolist = (todolistId: string) => {
+        dispatch(removeTodolistInTodoAC(todolistId))
     }
     const addTodolistHandler = (title: string) => {
         dispatch(addTodolistAC(title))
@@ -109,7 +109,7 @@ function AppWithRedux() {
                                             addTask={addTask}
                                             changeTaskStatus={changeTaskStatus}
                                             filter={todo.filter}
-                                            onClickDeleteTodolist={onClickDeleteTodolist}
+                                            removeTodolist={removeTodolist}
                                             changeTaskTitle={changeTaskTitle}
                                             changeTodolistTitle={changeTodolistTitle}
                                         />
