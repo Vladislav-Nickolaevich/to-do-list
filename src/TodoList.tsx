@@ -22,7 +22,15 @@ type TodoListPropsType = {
 }
 
 export const TodoList = memo((props: TodoListPropsType) => {
-    const {todolistId, filter, changeFilter, changeTaskStatus, tasks, removeTask} = props
+    console.log('todo')
+    const {todolistId, filter, changeFilter, changeTaskStatus, removeTask} = props
+
+    let tasks = props.tasks;
+    if (props.filter === 'active') {
+        tasks = tasks.filter(task => !task.isDone)
+    } else if (props.filter === 'completed') {
+        tasks = tasks.filter(task => task.isDone)
+    }
 
     const tasksListsItems = tasks.map((task) => {
         const onClickHandler = () => removeTask(todolistId, task.id)
@@ -62,6 +70,7 @@ export const TodoList = memo((props: TodoListPropsType) => {
     const changeTodolistTitle = (title: string) => {
         props.changeTodolistTitle(props.todolistId, title)
     }
+
     return (
         <div>
             <span>
