@@ -3,16 +3,21 @@ import './App.css';
 import {Input} from "./components/Input";
 import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@mui/material";
 import {Menu} from "@mui/icons-material";
-import {TodoList} from "./TodoList";
 import {
     addTodolistAC,
     changeFilterAC,
-    changeTodolistTitleAC,
-    removeTodolistInTodoAC,
+    changeTodolistTitleAC, removeTodolistInTodoAC,
 } from "./state/todolist-reducer";
-import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "./state/task-reducer";
+import {
+    addTaskAC,
+    changeTaskStatusAC,
+    changeTaskTitleAC,
+    removeTaskAC,
+    removeTodolistInTaskAC
+} from "./state/task-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootState} from "./state/store";
+import {TodoList} from "./TodoList";
 
 export type TaskType = {
     id: string,
@@ -53,6 +58,7 @@ function AppWithRedux() {
         dispatch(changeTaskStatusAC(id, value, todolistId))
     }
     const removeTodolist = (todolistId: string) => {
+        dispatch(removeTodolistInTaskAC(todolistId))
         dispatch(removeTodolistInTodoAC(todolistId))
     }
     const addTodolistHandler = (title: string) => {
