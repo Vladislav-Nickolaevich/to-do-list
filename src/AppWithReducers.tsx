@@ -9,7 +9,7 @@ import {
     addTodolistAC,
     changeFilterAC,
     changeTodolistTitleAC,
-    removeTodolistInTodoAC,
+    removeTodolistAC,
     todolistReducer
 } from "./state/todolist-reducer";
 import {
@@ -17,7 +17,6 @@ import {
     changeTaskStatusAC,
     changeTaskTitleAC,
     removeTaskAC,
-    removeTodolistInTaskAC,
     taskReducer
 } from "./state/task-reducer";
 
@@ -62,8 +61,7 @@ function AppWithReducers() {
         dispatchTasksReducer(changeTaskStatusAC(id, value, todolistId))
     }
     const removeTodolist = (todolistId: string) => {
-        dispatchToTodolistReducer(removeTodolistInTodoAC(todolistId))
-        dispatchTasksReducer(removeTodolistInTaskAC(todolistId))
+        dispatchToTodolistReducer(removeTodolistAC(todolistId))
     }
     const addTodolistHandler = (title: string) => {
         const action = addTodolistAC(title)

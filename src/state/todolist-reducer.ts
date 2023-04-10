@@ -3,7 +3,7 @@ import {FilterValuesType, TodolistsType} from "../App";
 
 
 export const ADD_TODOLIST = "ADD-TODOLIST"
-const REMOVE_TODOLIST = 'REMOVE-TODOLIST'
+export const REMOVE_TODOLIST = 'REMOVE-TODOLIST'
 const CHANGE_TODOLIST_TITLE = 'CHANGE-TODOLIST-TITLE'
 const CHANGE_TODOLIST_FILTER = 'CHANGE-TODOLIST-FILTER'
 
@@ -44,8 +44,8 @@ export const todolistReducer = (state: TodolistsType[] = initialState, action: T
     }
 }
 
-type RemoveTodolistACType = ReturnType<typeof removeTodolistInTodoAC>
-export const removeTodolistInTodoAC = (todolistID1: string) =>
+export type RemoveTodolistACType = ReturnType<typeof removeTodolistAC>
+export const removeTodolistAC = (todolistID1: string) =>
     ({type: REMOVE_TODOLIST, todolistID1} as const)
 
 export type AddTodolistACType = ReturnType<typeof addTodolistAC>

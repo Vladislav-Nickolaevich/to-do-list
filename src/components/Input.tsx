@@ -1,11 +1,11 @@
-import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
+import React, {ChangeEvent, KeyboardEvent, memo, useState} from 'react';
 import {IconButton, TextField} from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 
 type InputType = {
     addTask:(title: string) => void
 }
-export const Input = (props:InputType) => {
+export const Input = memo((props:InputType) => {
     const [value, setValue] = useState('')
     const [error, setError] = useState<string | null>(null)
     const inputOnChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -18,7 +18,7 @@ export const Input = (props:InputType) => {
     }
     const onClickAdd = () => {
         if (value.trim() !== '') {
-            props.addTask( value)
+            props.addTask(value)
             setValue('')
             setError(null)
         } else {
@@ -28,7 +28,6 @@ export const Input = (props:InputType) => {
     }
     return (
         <div>
-
             <TextField variant="outlined"
                        size='small'
                        label="Title"
@@ -45,5 +44,5 @@ export const Input = (props:InputType) => {
             {error && <div className='error-message'>{error}</div>}
         </div>
     );
-};
+});
 

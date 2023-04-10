@@ -1,11 +1,11 @@
 import {TasksStateType} from "../App";
 import {
     addTaskAC, changeTaskStatusAC, changeTaskTitleAC,
-    removeTaskAC, removeTodolistInTaskAC,
+    removeTaskAC,
     taskReducer
 
 } from "./task-reducer";
-import {addTodolistAC} from "./todolist-reducer";
+import {addTodolistAC, removeTodolistAC} from "./todolist-reducer";
 
 let startState: TasksStateType
 
@@ -94,7 +94,7 @@ test('new array should be added when new todolist is added', () => {
 })
 
 test('property with todolistID should be deleted', () => {
-    const endState = taskReducer(startState, removeTodolistInTaskAC('todolistID2'))
+    const endState = taskReducer(startState, removeTodolistAC('todolistID2'))
 
     const keys = Object.keys(endState)
 
