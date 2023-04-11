@@ -5,9 +5,8 @@ type CheckboxType = {
     checked: boolean
 }
 export const Checkbox = (props:CheckboxType) => {
-    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        props.callBack(e.currentTarget.checked)
-    }
+    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => props.callBack(e.currentTarget.checked)
+
     return (
         <input
             type='checkbox'
