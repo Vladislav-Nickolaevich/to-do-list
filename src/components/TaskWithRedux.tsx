@@ -1,23 +1,26 @@
-import React, {memo} from 'react';
+import React, {ChangeEvent, memo} from 'react';
 import {Checkbox} from "./Checkbox";
 import {EditableSpan} from "./EditableSpan";
 import {IconButton, ListItem} from "@mui/material";
 import CancelPresentationIcon from "@mui/icons-material/CancelPresentation";
 import {TaskType} from "../AppWithRedux";
+import {useDispatch} from "react-redux";
+import {changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "../state/task-reducer";
 
 
 type TaskPropsType = {
-    changeTaskStatus: (id: string, value: boolean) => void
-    changeTaskTitle:(taskId: string, title: string) => void
-    removeTask: (taskId: string) => void
+    todolistId: string
     task: TaskType
 }
-const Task = memo(({task, removeTask, changeTaskTitle, changeTaskStatus}: TaskPropsType) => {
+const TaskWithRedux = memo(({task, todolistId}: TaskPropsType) => {
     let {id, title, isDone} = task
+    const dispatch = useDispatch()
 
-    const removeTaskHandler = () => removeTask(id)
-    const changeStatusHandler = (eventValue: boolean) => changeTaskStatus(id, eventValue)
-    const changeTaskTitleHandler = (newTitle: string) => changeTaskTitle(id, newTitle)
+    const removeTaskHandler = () => dispatch(removeTaskAC(id, todolistId))
+    const changeStatusHandler = (e: boolean) => {
+        dispatch(changeTaskStatusAC(id, e, todolistId))
+    }
+    const changeTaskTitleHandler = (newTitle: string) => dispatch(changeTaskTitleAC(id, newTitle, todolistId))
 
     return (
         <ListItem
@@ -38,4 +41,4 @@ const Task = memo(({task, removeTask, changeTaskTitle, changeTaskStatus}: TaskPr
     );
 })
 
-export default Task;
+export default TaskWithRedux;

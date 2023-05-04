@@ -44,7 +44,7 @@ export const taskReducer = (state = initialState, action: TaskReducerActionType)
             }
         }
         case ADD_TASK: {
-            const newTask = {id: '4', title: action.newTitle, isDone: false}
+            const newTask = {id: action.taskID, title: action.newTitle, isDone: false}
             return {
                 ...state,
                 [action.todolistID1]: [...state[action.todolistID1], newTask]
@@ -92,7 +92,7 @@ export const removeTaskAC = (todolistID1: string, taskId: string) =>
 
 type AddACType = ReturnType<typeof addTaskAC>
 export const addTaskAC = (todolistID1: string, newTitle: string) =>
-    ({type: ADD_TASK, todolistID1 , newTitle} as const)
+    ({type: ADD_TASK, todolistID1 , newTitle, taskID: v1()} as const)
 
 type ChangeTaskStatusACType = ReturnType<typeof changeTaskStatusAC>
 export const changeTaskStatusAC = (taskId: string, isDone: boolean, todolistID: string) =>
