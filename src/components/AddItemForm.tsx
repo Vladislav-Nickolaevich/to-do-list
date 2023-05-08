@@ -2,10 +2,10 @@ import React, {ChangeEvent, KeyboardEvent, memo, useState} from 'react';
 import {IconButton, TextField} from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 
-type InputType = {
+export type AddItemFormType = {
     addTask:(title: string) => void
 }
-export const Input = memo((props:InputType) => {
+export const AddItemForm = memo((props:AddItemFormType) => {
     const [value, setValue] = useState('')
     const [error, setError] = useState<string | null>(null)
     const inputOnChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -29,16 +29,17 @@ export const Input = memo((props:InputType) => {
     return (
         <div>
             <TextField variant="outlined"
+                       error={!error? false: true}
                        size='small'
                        label="Title"
                        value={value}
                        onChange={inputOnChangeHandler}
                        onKeyDown={onKeyDownInput}
-
-                       className={error ? "error" : ""}
-
+                       // className={error ? "er" : ""}
             />
-            <IconButton color='primary' onClick={onClickAdd}>
+            <IconButton
+                color='primary'
+                onClick={onClickAdd}>
                 <AddIcon/>
             </IconButton>
             {error && <div className='error-message'>{error}</div>}

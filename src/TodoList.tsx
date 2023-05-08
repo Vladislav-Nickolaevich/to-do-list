@@ -1,6 +1,6 @@
 import React, {memo, useCallback} from 'react';
 import {FilterValuesType, TaskType} from "./App";
-import {Input} from "./components/Input";
+import {AddItemForm} from "./components/AddItemForm";
 import {EditableSpan} from "./components/EditableSpan";
 import {ButtonGroup, IconButton, Typography} from "@mui/material";
 import CancelPresentationIcon from '@mui/icons-material/CancelPresentation';
@@ -94,7 +94,7 @@ export const TodoList = memo((props: TodoListPropsType) => {
                 </Typography>
             </span>
 
-            <Input addTask={addTaskHandler}/>
+            <AddItemForm addTask={addTaskHandler}/>
             <ul>
                 {tasksListsItems}
             </ul>

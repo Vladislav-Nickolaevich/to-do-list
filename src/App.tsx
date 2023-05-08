@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import './App.css';
 import {v1} from "uuid";
-import {Input} from "./components/Input";
+import {AddItemForm} from "./components/AddItemForm";
 import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@mui/material";
 import {Menu} from "@mui/icons-material";
 import {TodoList} from "./TodoList";
@@ -100,7 +100,7 @@ function App() {
             </AppBar>
             <Container fixed>
                 <Grid container sx={{p: '50px 0'}}>
-                    <Input addTask={addTodolistHandler}/>
+                    <AddItemForm addTask={addTodolistHandler}/>
                 </Grid>
                 <Grid container spacing={6}>
                     {
