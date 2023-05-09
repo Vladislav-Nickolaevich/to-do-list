@@ -7,13 +7,9 @@
   margin-right: 50px;
 }
 
-.er{
-  border: 1px solid red;
-}
-.error-message{
-  color: red;
-
-}
+/*.error-message{*/
+/*  color: red;*/
+/*}*/
 li{
   list-style-type: none;
 }

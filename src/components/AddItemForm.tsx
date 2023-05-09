@@ -42,7 +42,10 @@ export const AddItemForm = memo((props:AddItemFormType) => {
                 onClick={onClickAdd}>
                 <AddIcon/>
             </IconButton>
-            {error && <div className='error-message'>{error}</div>}
+            {error && <div
+                // className='error-message'
+                style={{color: 'red'}}
+            >{error}</div>}
         </div>
     );
 });
