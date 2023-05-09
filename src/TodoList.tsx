@@ -4,9 +4,9 @@ import {AddItemForm} from "./components/AddItemForm";
 import {EditableSpan} from "./components/EditableSpan";
 import {ButtonGroup, IconButton, Typography} from "@mui/material";
 import CancelPresentationIcon from '@mui/icons-material/CancelPresentation';
-// import Task from "./components/Task";
 import {ButtonWithMemo} from "./components/ButtonWithMem";
 import TaskWithRedux from "./components/TaskWithRedux";
+import Task from "./components/Task";
 
 
 type TodoListPropsType = {
@@ -29,9 +29,11 @@ export const TodoList = memo((props: TodoListPropsType) => {
         filter,
         title,
         changeFilter,
-        // changeTaskStatus,
-        // removeTask,
-        // changeTaskTitle,
+
+        changeTaskStatus,
+        removeTask,
+        changeTaskTitle,
+
         removeTodolist,
         changeTodolistTitle,
         addTask
@@ -43,27 +45,36 @@ export const TodoList = memo((props: TodoListPropsType) => {
     } else if (filter === 'completed') {
         tasks = tasks.filter(task => task.isDone)
     }
-    // const changeStatusHandler = useCallback((taskId: string, eventValue: boolean) => {
-    //     changeTaskStatus(todolistId, taskId, eventValue)
-    // }, [changeTaskStatus, todolistId])
 
-    // const removeTaskHandler = useCallback((taskId: string) => {
-    //     removeTask(todolistId, taskId)
-    // }, [removeTask, todolistId])
 
-    // const changeTaskTitleHandler = useCallback((taskId: string, title: string) => {
-    //     changeTaskTitle(todolistId, taskId, title)
-    // }, [changeTaskTitle, todolistId])
+
+    //For the <Task/> without Redux
+    const changeStatusHandler = useCallback((taskId: string, eventValue: boolean) => {
+        changeTaskStatus(todolistId, taskId, eventValue)
+    }, [changeTaskStatus, todolistId])
+
+    const removeTaskHandler = useCallback((taskId: string) => {
+        removeTask(todolistId, taskId)
+    }, [removeTask, todolistId])
+
+    const changeTaskTitleHandler = useCallback((taskId: string, title: string) => {
+        changeTaskTitle(todolistId, taskId, title)
+    }, [changeTaskTitle, todolistId])
+
+
+
     const tasksListsItems = tasks.map((task) => {
         return (
-            // <Task
-            //     key={task.id}
-            //     task={task}
-            //     changeTaskStatus={changeStatusHandler}
-            //     removeTask={removeTaskHandler}
-            //     changeTaskTitle={changeTaskTitleHandler}/>
+            <Task
+                key={task.id}
+                task={task}
+                changeTaskStatus={changeStatusHandler}
+                removeTask={removeTaskHandler}
+                changeTaskTitle={changeTaskTitleHandler}
+                todolistId={todolistId}
+            />
 
-            <TaskWithRedux key={task.id} task={task} todolistId={todolistId}/>
+            // <TaskWithRedux key={task.id} task={task} todolistId={todolistId}/>
         );
     })
 

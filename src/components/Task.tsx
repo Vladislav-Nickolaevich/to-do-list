@@ -7,17 +7,18 @@ import {TaskType} from "../AppWithRedux";
 
 
 type TaskPropsType = {
-    changeTaskStatus: (id: string, value: boolean) => void
-    changeTaskTitle:(taskId: string, title: string) => void
-    removeTask: (taskId: string) => void
+    changeTaskStatus: (id: string, value: boolean, todolistId: string) => void
+    changeTaskTitle:(taskId: string, title: string, todolistId: string) => void
+    removeTask: (taskId: string, todolistId: string) => void
     task: TaskType
+    todolistId: string
 }
-const Task = memo(({task, removeTask, changeTaskTitle, changeTaskStatus}: TaskPropsType) => {
+const Task = memo(({task, removeTask, changeTaskTitle, changeTaskStatus, todolistId}: TaskPropsType) => {
     let {id, title, isDone} = task
 
-    const removeTaskHandler = () => removeTask(id)
-    const changeStatusHandler = (eventValue: boolean) => changeTaskStatus(id, eventValue)
-    const changeTaskTitleHandler = (newTitle: string) => changeTaskTitle(id, newTitle)
+    const removeTaskHandler = () => removeTask(id, todolistId)
+    const changeStatusHandler = (eventValue: boolean) => changeTaskStatus(id, eventValue, todolistId)
+    const changeTaskTitleHandler = (newTitle: string) => changeTaskTitle(id, newTitle, todolistId)
 
     return (
         <ListItem
