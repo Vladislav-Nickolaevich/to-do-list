@@ -1,8 +1,7 @@
 import type {Meta, StoryObj} from '@storybook/react';
 import {action} from '@storybook/addon-actions';
-
 import Task from '../components/Task';
-import {TaskType} from "../AppWithRedux";
+
 
 const meta: Meta<typeof Task> = {
     title: 'TODOLIST/Task',

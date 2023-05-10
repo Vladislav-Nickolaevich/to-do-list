@@ -1,4 +1,4 @@
-import React, {ChangeEvent, memo} from 'react';
+import React, {memo} from 'react';
 import {Checkbox} from "./Checkbox";
 import {EditableSpan} from "./EditableSpan";
 import {IconButton, ListItem} from "@mui/material";
