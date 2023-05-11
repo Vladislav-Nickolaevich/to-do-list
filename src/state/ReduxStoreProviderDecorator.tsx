@@ -27,7 +27,7 @@ const initialGlobalState = {
         ['todolistID2']: [
             {id: v1(), title: "Auto", isDone: false},
             {id: v1(), title: "Scissors", isDone: true},
-            {id: v1(), title: "Mobile Phone", isDone: false},
+            {id: '112233', title: "Mobile Phone", isDone: true},
         ],
     }
 }
