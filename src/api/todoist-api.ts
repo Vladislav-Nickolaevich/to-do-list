@@ -5,8 +5,8 @@ const instance = axios.create({
     withCredentials: true
 })
 
-type TodolistType = {
-    addedDate: Date
+export type TodolistType = {
+    addedDate: Date | string
     id: string
     order: number
     title: string
