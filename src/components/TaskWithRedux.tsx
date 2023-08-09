@@ -3,9 +3,9 @@ import {Checkbox} from "./Checkbox";
 import {EditableSpan} from "./EditableSpan";
 import {IconButton, ListItem} from "@mui/material";
 import CancelPresentationIcon from "@mui/icons-material/CancelPresentation";
-import {TaskType} from "../AppWithRedux";
 import {useDispatch} from "react-redux";
 import {changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "../state/task-reducer";
+import {TaskStatuses, TaskType} from "../api/task-api";
 
 
 type TaskPropsType = {
@@ -13,22 +13,22 @@ type TaskPropsType = {
     task: TaskType
 }
 const TaskWithRedux = memo(({task, todolistId}: TaskPropsType) => {
-    let {id, title, isDone} = task
+    let {id, title, status} = task
     const dispatch = useDispatch()
 
     const removeTaskHandler = () => dispatch(removeTaskAC(id, todolistId))
-    const changeStatusHandler = (e: boolean) => {
-        dispatch(changeTaskStatusAC(id, e, todolistId))
+    const changeStatusHandler = (value: boolean) => {
+        dispatch(changeTaskStatusAC(id, value? TaskStatuses.Completed: TaskStatuses.New, todolistId))
     }
     const changeTaskTitleHandler = (newTitle: string) => dispatch(changeTaskTitleAC(id, newTitle, todolistId))
 
     return (
         <ListItem
-            className={isDone ? "is-done" : ""}
+            className={status === TaskStatuses.Completed ? "is-done" : ""}
             sx={{p: '0'}}
         >
             <Checkbox
-                checked={isDone}
+                checked={status === TaskStatuses.Completed}
                 callBack={changeStatusHandler}
             />
             <EditableSpan title={title} changeTitle={changeTaskTitleHandler}/>
