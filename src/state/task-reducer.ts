@@ -1,4 +1,4 @@
-import {ADD_TODOLIST, AddTodolistACType, RemoveTodolistACType} from "./todolist-reducer";
+import {ADD_TODOLIST, AddTodolistACType, getTodolistAC, RemoveTodolistACType} from "./todolist-reducer";
 import {v1} from "uuid";
 import {TaskPriorities, TaskStatuses, TaskType} from "../api/task-api";
 
@@ -14,6 +14,7 @@ type TaskReducerActionType = RemoveACType
     | ChangeTaskTitleACType
     | AddTodolistACType
     | RemoveTodolistACType
+    | ReturnType<typeof getTodolistAC>
 
 
 export let todolistID1 = v1();
@@ -40,6 +41,13 @@ const initialState: TasksStateType = {
 
 export const taskReducer = (state = initialState, action: TaskReducerActionType):TasksStateType => {
     switch (action.type) {
+        case "GET-TODOLIST-API":{
+            const stateCopy = {...state}
+             action.todolist.forEach(t => {
+                stateCopy[t.id] = []
+            })
+            return stateCopy
+        }
         case REMOVE_TASK: {
             return {
                 ...state,
