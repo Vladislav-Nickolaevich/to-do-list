@@ -1,6 +1,7 @@
 import type {Meta, StoryObj} from '@storybook/react';
 import {action} from '@storybook/addon-actions';
 import Task from '../components/Task';
+import {TaskPriorities, TaskStatuses} from "../api/task-api";
 
 
 const meta: Meta<typeof Task> = {
@@ -11,7 +12,10 @@ const meta: Meta<typeof Task> = {
         changeTaskStatus: action('changedTaskStatus'),
         changeTaskTitle: action('changeTaskTitle'),
         removeTask: action('removeTask'),
-        task: {id: 'id111', isDone: false, title: 'CSS'},
+        task: {
+            id: 'id111', status: TaskStatuses.New, title: 'CSS', addedDate: '', deadline: '',
+            description: '', order: 0, priority: TaskPriorities.Low, startDate: '', todoListId: 'todolistId1111'
+        },
         todolistId: 'todolistId1111'
     },
 };
@@ -23,7 +27,10 @@ export const TaskIsNotDone: Story = {};
 
 export const TaskIsDone: Story = {
     args: {
-        task: {id: 'id222', isDone: true, title: 'HTML'},
+        task: {
+            id: 'id222', status: TaskStatuses.Completed, title: 'HTML', addedDate: '', deadline: '',
+            description: '', order: 0, priority: TaskPriorities.Low, startDate: '', todoListId: 'todolistId2222'
+        },
         todolistId: 'todolistId2222'
     },
 };

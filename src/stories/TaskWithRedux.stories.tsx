@@ -4,8 +4,8 @@ import {ReduxStoreProviderDecorator} from "../state/ReduxStoreProviderDecorator"
 import {useSelector} from "react-redux";
 import {AppRootState} from "../state/store";
 import React from 'react';
-import {TaskType} from "../AppWithRedux";
-import Task from "../components/Task";
+import {TaskPriorities, TaskStatuses, TaskType} from "../api/task-api";
+
 
 
 const meta: Meta<typeof TaskWithRedux> = {
@@ -13,7 +13,10 @@ const meta: Meta<typeof TaskWithRedux> = {
     component: TaskWithRedux,
     tags: ['autodocs'],
     args: {
-        task: {id: '112233', title: "Auto", isDone: false},
+        task: {
+            id: '112233', status: TaskStatuses.New, title: 'Auto', addedDate: '', deadline: '', description: '',
+            order: 0, priority: TaskPriorities.Low, startDate: '', todoListId: 'todolistID2'
+        },
         todolistId: 'todolistID2'
     },
     decorators: [ReduxStoreProviderDecorator]
