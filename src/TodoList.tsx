@@ -1,12 +1,12 @@
 import React, {memo, useCallback} from 'react';
-import {FilterValuesType, TaskType} from "./App";
 import {AddItemForm} from "./components/AddItemForm";
 import {EditableSpan} from "./components/EditableSpan";
 import {ButtonGroup, IconButton, Typography} from "@mui/material";
 import CancelPresentationIcon from '@mui/icons-material/CancelPresentation';
 import {ButtonWithMemo} from "./components/ButtonWithMem";
-import TaskWithRedux from "./components/TaskWithRedux";
 import Task from "./components/Task";
+import {TaskStatuses, TaskType} from "./api/task-api";
+import {FilterValuesType} from "./state/todolist-reducer";
 
 
 type TodoListPropsType = {
@@ -16,7 +16,7 @@ type TodoListPropsType = {
     removeTask: (todolistId: string, taskId: string) => void
     changeFilter: (todolistId: string, nextFilterValue: FilterValuesType) => void
     addTask: (todolistId: string, value: string) => void
-    changeTaskStatus: (todolistId: string, id: string, value: boolean) => void
+    changeTaskStatus: (todolistId: string, id: string, status: TaskStatuses) => void
     filter: FilterValuesType
     removeTodolist: (todolistId: string) => void
     changeTaskTitle: (todolistId: string, taskId: string, title: string) => void
@@ -29,11 +29,9 @@ export const TodoList = memo((props: TodoListPropsType) => {
         filter,
         title,
         changeFilter,
-
         changeTaskStatus,
         removeTask,
         changeTaskTitle,
-
         removeTodolist,
         changeTodolistTitle,
         addTask
@@ -41,16 +39,16 @@ export const TodoList = memo((props: TodoListPropsType) => {
 
     let tasks = props.tasks;
     if (filter === 'active') {
-        tasks = tasks.filter(task => !task.isDone)
+        tasks = tasks.filter(task => task.status === TaskStatuses.New)
     } else if (filter === 'completed') {
-        tasks = tasks.filter(task => task.isDone)
+        tasks = tasks.filter(task => task.status === TaskStatuses.Completed)
     }
 
 
 
     //For the <Task/> without Redux
-    const changeStatusHandler = useCallback((taskId: string, eventValue: boolean) => {
-        changeTaskStatus(todolistId, taskId, eventValue)
+    const changeStatusHandler = useCallback((taskId: string, status: TaskStatuses) => {
+        changeTaskStatus(todolistId, taskId, status)
     }, [changeTaskStatus, todolistId])
 
     const removeTaskHandler = useCallback((taskId: string) => {
