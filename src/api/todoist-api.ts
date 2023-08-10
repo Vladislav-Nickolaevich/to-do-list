@@ -1,4 +1,6 @@
 import axios from "axios";
+import {Dispatch} from "redux";
+import {getTodolistAC} from "../state/todolist-reducer";
 
 const instance = axios.create({
     baseURL: "https://social-network.samuraijs.com/api/1.1",
