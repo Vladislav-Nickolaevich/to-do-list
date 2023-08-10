@@ -66,13 +66,13 @@ export const taskReducer = (state = initialState, action: TaskReducerActionType)
             }
         }
         case ADD_TASK: {
-            const newTask = {
-                id: action.taskID, title: action.newTitle, status: TaskStatuses.New, description: '', order: 0,
-                priority: TaskPriorities.Low, startDate: '', deadline: '', addedDate: '', todoListId: action.todolistID1
-            }
+            // const newTask: TaskType = {
+            //     id: action.task.id, title: action.task.title, status: TaskStatuses.New, description: '', order: 0,
+            //     priority: TaskPriorities.Low, startDate: '', deadline: '', addedDate: '', todoListId: action.todolistID1
+            // }
             return {
                 ...state,
-                [action.todolistID1]: [...state[action.todolistID1], newTask]
+                [action.todolistID1]: [action.task, ...state[action.todolistID1]]
             }
         }
         case CHANGE_TASK_STATUS: {
@@ -116,8 +116,8 @@ export const removeTaskAC = (todolistID1: string, taskId: string) =>
     ({type: REMOVE_TASK, todolistID1, taskId} as const)
 
 type AddACType = ReturnType<typeof addTaskAC>
-export const addTaskAC = (todolistID1: string, newTitle: string) =>
-    ({type: ADD_TASK, todolistID1, newTitle, taskID: v1()} as const)
+export const addTaskAC = (todolistID1: string, task: TaskType) =>
+    ({type: ADD_TASK, todolistID1, task} as const)
 
 type ChangeTaskStatusACType = ReturnType<typeof changeTaskStatusAC>
 export const changeTaskStatusAC = (taskId: string, status: TaskStatuses, todolistID: string) =>
@@ -140,4 +140,10 @@ export const setTodolistTasksTC = (todolitsId: string) => (dispatch: Dispatch) =
 export const removeTaskTC = (todolitsId: string, taskId: string) => (dispatch: Dispatch) => {
     taskApi.deleteTask(todolitsId, taskId)
         .then(res => dispatch(removeTaskAC(todolitsId, taskId)))
+}
+
+
+export const createTaskTC = (todolitsId: string, title: string) => (dispatch: Dispatch) => {
+    taskApi.createTask(todolitsId, title)
+        .then(res => dispatch(addTaskAC(todolitsId , res.data.data.item)))
 }

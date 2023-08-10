@@ -3,9 +3,9 @@ import {Checkbox} from "./Checkbox";
 import {EditableSpan} from "./EditableSpan";
 import {IconButton, ListItem} from "@mui/material";
 import CancelPresentationIcon from "@mui/icons-material/CancelPresentation";
-import {useDispatch} from "react-redux";
-import {changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "../state/task-reducer";
+import {changeTaskStatusAC, changeTaskTitleAC,  removeTaskTC} from "../state/task-reducer";
 import {TaskStatuses, TaskType} from "../api/task-api";
+import {useAppDispatch} from "../state/store";
 
 
 type TaskPropsType = {
@@ -14,9 +14,9 @@ type TaskPropsType = {
 }
 const TaskWithRedux = memo(({task, todolistId}: TaskPropsType) => {
     let {id, title, status} = task
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
 
-    const removeTaskHandler = () => dispatch(removeTaskAC(id, todolistId))
+    const removeTaskHandler = () => dispatch(removeTaskTC(todolistId, id))
     const changeStatusHandler = (value: boolean) => {
         dispatch(changeTaskStatusAC(id, value? TaskStatuses.Completed: TaskStatuses.New, todolistId))
     }
