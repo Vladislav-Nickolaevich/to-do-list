@@ -7,7 +7,7 @@ import {
     addTodolistAC,
     changeFilterAC,
     changeTodolistTitleAC, FilterValuesType,
-    removeTodolistAC, setTodolistTC, TodolistDomainType
+    removeTodolistAC, setTodolistsTC, TodolistDomainType
 } from "./state/todolist-reducer";
 import {
     addTaskAC,
@@ -63,7 +63,7 @@ function AppWithRedux() {
 
 
     useEffect(() => {
-        dispatch(setTodolistTC())
+        dispatch(setTodolistsTC())
     }, [])
 
     return (
