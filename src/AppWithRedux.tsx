@@ -11,7 +11,7 @@ import {
 } from "./state/todolist-reducer";
 import {
     changeTaskStatusAC,
-    changeTaskTitleAC, createTaskTC, removeTaskTC, TasksStateType,
+    changeTaskTitleAC, createTaskTC, removeTaskTC, TasksStateType, updateTaskStatusTC,
 } from "./state/task-reducer";
 import {AppRootState, useAppDispatch, useAppSelector} from "./state/store";
 import {TodoList} from "./TodoList";
@@ -38,7 +38,7 @@ function AppWithRedux() {
     }, [dispatch])
 
     const changeTaskStatus = useCallback((todolistId: string, id: string, status: TaskStatuses) => {
-        dispatch(changeTaskStatusAC(id, status, todolistId))
+        dispatch(updateTaskStatusTC(todolistId, id, status))
     },[dispatch])
 
     const removeTodolist = useCallback((todolistId: string) => {
