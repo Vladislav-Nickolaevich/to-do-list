@@ -78,7 +78,13 @@ test('Title should be changed', () => {
 })
 
 test('new array should be added when new todolist is added', () => {
-    const endState = taskReducer(startState, addTodolistAC('New Todolist'))
+    const newTodo = {
+        id: "a2dfe62b-ebce-4b37-9581-1cc77ebc999f",
+        title: 'New Todolist',
+        addedDate: "",
+        order: 0
+    }
+    const endState = taskReducer(startState, addTodolistAC(newTodo))
 
     const keys = Object.keys(endState);
     const newKey = keys.find(k => k != 'todolistID1' && k != 'todolistID2')

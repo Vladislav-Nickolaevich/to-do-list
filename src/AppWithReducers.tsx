@@ -76,10 +76,15 @@ function AppWithReducers() {
         dispatchToTodolistReducer(removeTodolistAC(todolistId))
     }
     const addTodolistHandler = (title: string) => {
-        const action = addTodolistAC(title)
+        const newTodo = {
+            id: "a2dfe62b-ebce-4b37-9581-1cc77ebc999f",
+            title,
+            addedDate: "",
+            order: 0
+        }
+        const action = addTodolistAC(newTodo)
         dispatchToTodolistReducer(action)
         dispatchTasksReducer(action)
-
     }
     const changeTaskTitle = (todolistId: string, taskId: string, title: string) => {
         dispatchTasksReducer(changeTaskTitleAC(taskId, title, todolistId))

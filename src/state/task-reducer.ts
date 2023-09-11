@@ -6,7 +6,6 @@ import {
 } from "./todolist-reducer";
 import {v1} from "uuid";
 import {taskApi, TaskStatuses, TaskType, UpdateTaskModelType} from "../api/task-api";
-import {Dispatch} from "redux";
 import {ActionsType, AppRootState, AppThunk} from "./store";
 
 const REMOVE_TASK = 'REMOVE-TASK'
@@ -95,7 +94,7 @@ export const taskReducer = (state = initialState, action: ActionsType): TasksSta
         case ADD_TODOLIST: {
             return {
                 ...state,
-                [action.todolistID]: []
+                [action.newTodolist.id]: []
             }
         }
         case REMOVE_TODOLIST: {
@@ -159,9 +158,16 @@ export const updateTaskStatusTC = (todolitsId: string, taskId: string, status: T
             priority: task.priority,
             startDate: task.startDate
         }
-        taskApi.updateTask(todolitsId, taskId, model)
+        taskApi.updateTaskStatus(todolitsId, taskId, model)
             .then(res => dispatch(changeTaskStatusAC(taskId, status,todolitsId)))
     }
 }
+
+export const updateTaskTitleTC = (todolistId: string, taskId: string, title: string): AppThunk  => (dispatch) => {
+    taskApi.updateTaskTitle(todolistId, taskId, title)
+        .then(res => dispatch(changeTaskTitleAC(taskId, title, todolistId)))
+    }
+
+
 
 
