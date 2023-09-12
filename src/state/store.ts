@@ -3,10 +3,12 @@ import {taskReducer, TaskReducerActionType} from "./task-reducer";
 import {todolistReducer, TodolistsReducerActionType} from "./todolist-reducer";
 import thunk, {ThunkAction, ThunkDispatch} from "redux-thunk";
 import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
+import {appReducer} from "../app/app-reducer";
 
 const rootReducer = combineReducers({
     todolists: todolistReducer,
-    tasks: taskReducer
+    tasks: taskReducer,
+    app: appReducer
 })
 
 export type AppRootState = ReturnType<typeof rootReducer>

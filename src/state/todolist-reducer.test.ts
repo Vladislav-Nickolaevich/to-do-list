@@ -14,8 +14,8 @@ let startState: Array<TodolistDomainType>
 beforeEach(() => {
     todolistID2 = v1();
     startState = [
-        {id: todolistID1, title: 'What to learn', filter: 'all', order: 0, addedDate: ''},
-        {id: todolistID2, title: 'What to buy', filter: 'all', order: 1, addedDate: ''},
+        {id: todolistID1, title: 'What to learn', filter: 'all', order: 0, addedDate: '', entityStatus: 'idle'},
+        {id: todolistID2, title: 'What to buy', filter: 'all', order: 1, addedDate: '', entityStatus: 'idle'},
     ]
 })
 

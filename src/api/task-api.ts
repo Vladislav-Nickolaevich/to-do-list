@@ -5,6 +5,12 @@ const instance = axios.create({
     withCredentials: true
 })
 
+export enum ResultCodes {
+    OK = 0,
+    ERROR = 1,
+    ERROR_CAPTCHA = 10
+}
+
 export enum TaskStatuses {
     New = 0,
     InProgress = 1,
@@ -36,7 +42,7 @@ type GetTaskResponseType = {
     items: TaskType[]
     totalCount: number
 }
-type ResponseTaskType<T = {}> = {
+export type ResponseType<T = {}> = {
     data: T
     messages: string[]
     fieldsErrors: string[]
@@ -58,18 +64,18 @@ export const taskApi = {
     },
     createTask(todolistId: string, title: string) {
         return instance
-            .post<ResponseTaskType<{ item: TaskType }>>(`/todo-lists/${todolistId}/tasks`, {title})
+            .post<ResponseType<{ item: TaskType }>>(`/todo-lists/${todolistId}/tasks`, {title})
     },
     deleteTask(todolistId: string, taskId: string) {
         return instance
-            .delete<ResponseTaskType>(`/todo-lists/${todolistId}/tasks/${taskId}`)
+            .delete<ResponseType>(`/todo-lists/${todolistId}/tasks/${taskId}`)
     },
     updateTaskStatus(todolistId: string, taskId: string, model: UpdateTaskModelType){
       return instance
-          .put<UpdateTaskModelType, AxiosResponse<ResponseTaskType<{ item: TaskType }>>>(`/todo-lists/${todolistId}/tasks/${taskId}`, model)
+          .put<UpdateTaskModelType, AxiosResponse<ResponseType<{ item: TaskType }>>>(`/todo-lists/${todolistId}/tasks/${taskId}`, model)
     },
     updateTaskTitle(todolistId: string, taskId: string, title: string) {
         return instance
-            .put<ResponseTaskType<{ item: TaskType }>>(`/todo-lists/${todolistId}/tasks/${taskId}`, {title})
+            .put<ResponseType<{ item: TaskType }>>(`/todo-lists/${todolistId}/tasks/${taskId}`, {title})
     }
 }

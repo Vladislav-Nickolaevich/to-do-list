@@ -13,7 +13,6 @@ import {
     todolistReducer
 } from "./state/todolist-reducer";
 import {
-    addTaskAC,
     changeTaskStatusAC,
     changeTaskTitleAC,
     removeTaskAC,
@@ -27,8 +26,8 @@ function AppWithReducers() {
     let todolistID2 = v1();
 
     let [todolist, dispatchToTodolistReducer] = useReducer(todolistReducer, [
-        {id: todolistID1, title: 'What to learn', filter: 'all', order: 0, addedDate: ''},
-        {id: todolistID2, title: 'What to buy', filter: 'all', order: 0, addedDate: ''},
+        {id: todolistID1, title: 'What to learn', filter: 'all', order: 0, addedDate: '', entityStatus: 'idle'},
+        {id: todolistID2, title: 'What to buy', filter: 'all', order: 0, addedDate: '', entityStatus: 'idle'},
     ])
 
     let [tasks, dispatchTasksReducer] = useReducer(taskReducer, {
@@ -129,6 +128,7 @@ function AppWithReducers() {
                                     <Paper sx={{padding: '20px'}} elevation={16}>
                                         <TodoList
                                             key={todo.id}
+                                            entityStatus={todo.entityStatus}
                                             todolistId={todo.id}
                                             title={todo.title}
                                             tasks={tasksForRender}
