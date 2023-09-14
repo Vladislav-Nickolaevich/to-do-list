@@ -13,7 +13,7 @@ export const EditableSpan = memo((props: EditableSpanType) => {
         setEdit(!edit)
         props.changeTitle(newTitle)
     }
-    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) =>  setNewTitle(e.currentTarget.value)
+    const onChangeTitle = (e: ChangeEvent<HTMLInputElement>) =>  setNewTitle(e.currentTarget.value)
 
     return (
         edit ?
@@ -21,12 +21,11 @@ export const EditableSpan = memo((props: EditableSpanType) => {
                 value={newTitle}
                 onBlur={changeTextOfTask}
                 autoFocus
-                onChange={onChangeHandler}
+                onChange={onChangeTitle}
                 variant='standard'
             />
             :
             <span onClick={changeTextOfTask}>{props.title}</span>
-
     );
 })
 

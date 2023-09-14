@@ -3,7 +3,7 @@ import {IconButton, TextField} from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 
 export type AddItemFormType = {
-    addTask: (title: string) => void
+    addItem: (title: string) => void
     disabled?: boolean
 }
 export const AddItemForm = memo((props: AddItemFormType) => {
@@ -19,7 +19,7 @@ export const AddItemForm = memo((props: AddItemFormType) => {
     }
     const onClickAdd = () => {
         if (value.trim() !== '') {
-            props.addTask(value)
+            props.addItem(value)
             setValue('')
             setError(null)
         } else {

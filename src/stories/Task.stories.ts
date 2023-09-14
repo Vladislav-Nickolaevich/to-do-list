@@ -1,7 +1,7 @@
 import type {Meta, StoryObj} from '@storybook/react';
 import {action} from '@storybook/addon-actions';
-import Task from '../components/Task';
 import {TaskPriorities, TaskStatuses} from "../api/task-api";
+import {Task} from "../features/TodolistsList/Todolist/Task/Task";
 
 
 const meta: Meta<typeof Task> = {

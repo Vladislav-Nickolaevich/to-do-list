@@ -1,16 +1,11 @@
 .App {
   padding: 30px;
-  /*display: flex;*/
 }
 
 .App > div {
-  /*margin-right: 50px;*/
   margin: 0 auto;
 }
 
-/*.error-message{*/
-/*  color: red;*/
-/*}*/
 li{
   list-style-type: none;
 }

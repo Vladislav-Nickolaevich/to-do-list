@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import {AddItemForm, AddItemFormType} from '../components/AddItemForm';
+import {AddItemForm, AddItemFormType} from '../components/AddItemForm/AddItemForm';
 import React, {ChangeEvent, KeyboardEvent, useState} from "react";
 import {IconButton, TextField} from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
@@ -10,7 +10,7 @@ const meta: Meta<typeof AddItemForm> = {
   component: AddItemForm,
   tags: ['autodocs'],
   argTypes: {
-    addTask: {
+    addItem: {
       description: 'Button clicked inside form',
     }
   },
@@ -21,7 +21,7 @@ type Story = StoryObj<typeof AddItemForm>;
 
 export const AddItemFormStory: Story = {
   args: {
-    addTask: action('Button clicked inside form')
+    addItem: action('Button clicked inside form')
   }
 };
 export const AddItemFormWithErrorStory = (args: AddItemFormType) => {
@@ -37,7 +37,7 @@ export const AddItemFormWithErrorStory = (args: AddItemFormType) => {
   }
   const onClickAdd = () => {
     if (value.trim() !== '') {
-      args.addTask(value)
+      args.addItem(value)
       setValue('')
       setError(null)
     } else {

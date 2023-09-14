@@ -1,17 +1,6 @@
-import axios, {AxiosResponse} from "axios";
-import {ResponseType} from "../api/task-api";
+import {AxiosResponse} from "axios";
+import {instance, ResponseType, TodolistType} from "../api/task-api";
 
-const instance = axios.create({
-    baseURL: "https://social-network.samuraijs.com/api/1.1",
-    withCredentials: true
-})
-
-export type TodolistType = {
-    addedDate: Date | string
-    id: string
-    order: number
-    title: string
-}
 
 export const todolistApi = {
     getTodolist() {

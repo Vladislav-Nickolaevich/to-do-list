@@ -1,5 +1,5 @@
-import {changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, taskReducer, TasksStateType} from "./task-reducer";
-import {addTodolistAC, removeTodolistAC} from "./todolist-reducer";
+import {updateTaskStatusAC, changeTaskTitleAC, removeTaskAC, taskReducer, TasksStateType} from "../features/task-reducer";
+import {addTodolistAC, removeTodolistAC} from "../features/todolist-reducer";
 import {TaskPriorities, TaskStatuses} from "../api/task-api";
 
 let startState: TasksStateType
@@ -62,7 +62,7 @@ test('Should remove task', () => {
 
 
 test('Status of specified task should be changed', () => {
-    const endState = taskReducer(startState, changeTaskStatusAC('2', TaskStatuses.New, 'todolistID2'))
+    const endState = taskReducer(startState, updateTaskStatusAC('2', TaskStatuses.New, 'todolistID2'))
 
     expect(endState['todolistID2'].length).toBe(2)
     expect(endState['todolistID2'][1].status).toBe(TaskStatuses.New,)
