@@ -4,7 +4,6 @@ import {
     GetTodolistsAC,
     RemoveTodolistACType,
 } from "./todolist-reducer";
-import {v1} from "uuid";
 import {ResultCodes, taskApi, TaskStatuses, TaskType, UpdateTaskModelType} from "../api/task-api";
 import {ActionsType, AppRootState, AppThunk} from "../app/store";
 import {setStatusAC, SetStatusACType} from "../app/app-reducer";
