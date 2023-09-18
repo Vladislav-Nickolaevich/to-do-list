@@ -46,27 +46,19 @@ export const Login = () => {
                     <FormGroup>
                         <TextField label="Email"
                                    margin="normal"
-                                   name="email"
-                                   onChange={formik.handleChange}
-                                   value={formik.values.email}
-                                   onBlur={formik.handleBlur}
+                                   {...formik.getFieldProps('email')}
                         />
                         {formik.touched.email && formik.errors.email && <span style={{color: 'red'}}>{formik.errors.email}</span>}
                         <TextField type="password"
                                    label="Password"
                                    margin="normal"
-                                   name="password"
-                                   onChange={formik.handleChange}
-                                   value={formik.values.password}
-                                   onBlur={formik.handleBlur}
+                                   {...formik.getFieldProps('password')}
                         />
                         {formik.touched.password && formik.errors.password && <span style={{color: 'red'}}>{formik.errors.password}</span>}
                         <FormControlLabel
                             label={'Remember me'}
                             control={<Checkbox
-                                name="rememberMe"
-                                onChange={formik.handleChange}
-                                value={formik.values.rememberMe}
+                                {...formik.getFieldProps('rememberMe')}
                             />}
                         />
                         <Button type={'submit'} variant={'contained'} color={'primary'}>
