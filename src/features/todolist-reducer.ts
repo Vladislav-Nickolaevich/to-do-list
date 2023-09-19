@@ -13,7 +13,7 @@ const initialState: TodolistDomainType[] = [
 
 export const todolistReducer = (state: TodolistDomainType[] = initialState, action: ActionsType):TodolistDomainType[] => {
     switch (action.type) {
-        case "GET-TODOLISTS-API": {
+        case GET_TODOLISTS_API: {
             return action.todolists.map(el => ({...el, filter: 'all', entityStatus: 'idle'}))
         }
        case REMOVE_TODOLIST: {
@@ -59,7 +59,7 @@ export const changeFilterAC = (id: string, filter: FilterValuesType) =>
     ({type: CHANGE_TODOLIST_FILTER, id, filter} as const)
 
 
-export type GetTodolistsAC =  ReturnType<typeof getTodolistsAC>
+export type GetTodolistsACType =  ReturnType<typeof getTodolistsAC>
 export const getTodolistsAC = (todolists: TodolistType[]) => ({type: GET_TODOLISTS_API, todolists} as const)
 
 export const setEntityStatusTodolistAC = (id: string, status: RequestStatusType) =>
@@ -115,9 +115,6 @@ export const updateTodolistTitleTC = (todolistId: string,title: string): AppThun
         .catch(e => handlerServerNetworkError(dispatch, e.message))
 }
 
-
-
-
 export const ADD_TODOLIST = "ADD-TODOLIST"
 export const REMOVE_TODOLIST = 'REMOVE-TODOLIST'
 const CHANGE_TODOLIST_TITLE = 'CHANGE-TODOLIST-TITLE'
@@ -128,7 +125,7 @@ export type TodolistsReducerActionType = RemoveTodolistACType
     | AddTodolistACType
     | ChangeTodolistTitleACType
     | ChangeFilterACType
-    | GetTodolistsAC
+    | GetTodolistsACType
     | SetStatusACType
     | SetErrorACType
     | ReturnType<typeof setEntityStatusTodolistAC>

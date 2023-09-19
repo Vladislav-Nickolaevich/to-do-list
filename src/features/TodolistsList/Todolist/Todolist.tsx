@@ -4,10 +4,11 @@ import {EditableSpan} from "../../../components/EditableSpan/EditableSpan";
 import {Button, IconButton} from "@mui/material";
 import {TaskStatuses, TaskType} from "../../../api/task-api";
 import {FilterValuesType, TodolistDomainType} from "../../todolist-reducer";
-import {useAppDispatch} from "../../../app/store";
+import {useAppDispatch, useAppSelector} from "../../../app/store";
 import {setTodolistTasksTC} from "../../task-reducer";
 import {Delete} from "@mui/icons-material";
 import {Task} from "./Task/Task";
+import {Navigate} from "react-router-dom";
 
 
 type TodoListPropsType = {
@@ -24,6 +25,7 @@ type TodoListPropsType = {
 
 export const Todolist = memo((props: TodoListPropsType) => {
     const dispatch = useAppDispatch()
+    const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
 
     useEffect(() => {
         dispatch(setTodolistTasksTC(props.todolist.id))
@@ -66,7 +68,9 @@ export const Todolist = memo((props: TodoListPropsType) => {
             />
         );
     })
-
+    if (!isLoggedIn) {
+        return <Navigate to={'/login'}/>
+    }
     return (
         <div>
             <h3><EditableSpan title={props.todolist.title} changeTitle={changeTodolistTitle}/>

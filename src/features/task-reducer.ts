@@ -1,7 +1,7 @@
 import {
     ADD_TODOLIST,
     AddTodolistACType,
-    GetTodolistsAC,
+    GetTodolistsACType,
     RemoveTodolistACType,
 } from "./todolist-reducer";
 import {ResultCodes, taskApi, TaskStatuses, TaskType, UpdateTaskModelType} from "../api/task-api";
@@ -198,7 +198,7 @@ export type TaskReducerActionType = RemoveACType
     | ChangeTaskTitleACType
     | AddTodolistACType
     | RemoveTodolistACType
-    | GetTodolistsAC
+    | GetTodolistsACType
     | SetTaskACType
     | SetStatusACType
 
