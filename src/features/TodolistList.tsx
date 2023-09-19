@@ -19,14 +19,17 @@ import {
     updateTaskTitleTC
 } from "./task-reducer";
 import {Todolist} from "./TodolistsList/Todolist/Todolist";
+import {Navigate} from "react-router-dom";
 
 
 export const TodolistsList: React.FC = () => {
     const todolists = useAppSelector<TodolistDomainType[]>(state => state.todolists)
     const tasks = useAppSelector<TasksStateType>(state => state.tasks)
+    const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
     const dispatch = useAppDispatch()
 
     useEffect(() => {
+        if(!isLoggedIn) return
         dispatch(setTodolistsTC())
     }, [])
 
@@ -62,7 +65,9 @@ export const TodolistsList: React.FC = () => {
     const changeTodolistTitle = useCallback((todolistId: string, title: string) => {
         dispatch(updateTodolistTitleTC(todolistId, title))
     }, [dispatch])
-
+    if(!isLoggedIn){
+        return <Navigate to={"/login"}/>
+    }
     return (
         <div>
             <Grid container style={{padding: '20px'}}>
